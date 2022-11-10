@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:skeleton/app/services/localization_service.dart';
-import 'package:skeleton/utils/themes/theme.dart';
 
 import 'app/routes/app_pages.dart';
+import 'app/services/localization_service.dart';
+import 'utils/themes/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,7 @@ void main() async {
             theme: AppTheme.lightTheme,
             themeMode: ThemeMode.light,
             darkTheme: AppTheme.darkTheme,
-            initialRoute: AppPages.INITIAL,
+            initialRoute: AppPages.initial,
             getPages: AppPages.routes,
           );
         }),

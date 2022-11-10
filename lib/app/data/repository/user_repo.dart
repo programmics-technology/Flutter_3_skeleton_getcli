@@ -1,6 +1,6 @@
-import 'package:skeleton/app/data/api/api_client.dart';
-import 'package:skeleton/app/data/model/user_model.dart';
-import 'package:skeleton/utils/constants/api_constants.dart';
+import '../../../utils/constants/api_constants.dart';
+import '../api/api_client.dart';
+import '../model/user_model.dart';
 
 class UserRepo {
   ApiClient apiClient = ApiClient();
