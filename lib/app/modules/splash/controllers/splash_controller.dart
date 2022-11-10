@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:skeleton/app/routes/app_pages.dart';
+
+import '../../../routes/app_pages.dart';
 
 class SplashController extends GetxController {
   //TODO: Implement SplashController
@@ -8,8 +9,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Future.delayed(Duration(seconds: 3))
-        .then((value) => Get.offNamed(Routes.HOME));
+    Future.delayed(Duration(seconds: 3)).then((value) => Get.offNamed(Routes.home));
   }
 
   @override

@@ -9,13 +9,14 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import 'package:skeleton/utils/constants/api_constants.dart';
+
+import '../../../utils/constants/api_constants.dart';
 
 class ApiClient extends GetxService {
   final String appBaseUrl = ApiConstants.baseUrl;
+
   // final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  static const String noInternetMessage =
-      'Connection to API server failed due to internet connection';
+  static const String noInternetMessage = 'Connection to API server failed due to internet connection';
   final int timeoutInSeconds = 30;
 
   // String token;
@@ -45,8 +46,7 @@ class ApiClient extends GetxService {
   //   };
   // }
 
-  Future<Response> getData(String uri,
-      {Map<String, dynamic>? query, Map<String, String>? headers}) async {
+  Future<Response> getData(String uri, {Map<String, dynamic>? query, Map<String, String>? headers}) async {
     try {
       debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
       http.Response response = await http
@@ -61,8 +61,7 @@ class ApiClient extends GetxService {
     }
   }
 
-  Future<Response> postData(String uri, Map<String, dynamic> body,
-      {Map<String, String>? headers}) async {
+  Future<Response> postData(String uri, Map<String, dynamic> body, {Map<String, String>? headers}) async {
     try {
       debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
       debugPrint('====> API Body: $body');
@@ -80,14 +79,12 @@ class ApiClient extends GetxService {
     }
   }
 
-  Future<Response> postMultipartData(
-      String uri, Map<String, String> body, List<MultipartBody> multipartBody,
+  Future<Response> postMultipartData(String uri, Map<String, String> body, List<MultipartBody> multipartBody,
       {Map<String, String>? headers}) async {
     try {
       debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
       debugPrint('====> API Body: $body');
-      http.MultipartRequest request =
-          http.MultipartRequest('POST', Uri.parse(appBaseUrl + uri));
+      http.MultipartRequest request = http.MultipartRequest('POST', Uri.parse(appBaseUrl + uri));
       request.headers.addAll(headers ?? _mainHeaders);
       for (MultipartBody multipart in multipartBody) {
         if (foundation.kIsWeb) {
@@ -111,16 +108,14 @@ class ApiClient extends GetxService {
         }
       }
       request.fields.addAll(body);
-      http.Response response =
-          await http.Response.fromStream(await request.send());
+      http.Response response = await http.Response.fromStream(await request.send());
       return handleResponse(response, uri);
     } catch (e) {
       return const Response(statusCode: 1, statusText: noInternetMessage);
     }
   }
 
-  Future<Response> putData(String uri, dynamic body,
-      {Map<String, String>? headers}) async {
+  Future<Response> putData(String uri, dynamic body, {Map<String, String>? headers}) async {
     try {
       debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
       debugPrint('====> API Body: $body');
@@ -137,8 +132,7 @@ class ApiClient extends GetxService {
     }
   }
 
-  Future<Response> deleteData(String uri,
-      {Map<String, String>? headers}) async {
+  Future<Response> deleteData(String uri, {Map<String, String>? headers}) async {
     try {
       debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
       http.Response response = await http
@@ -158,8 +152,11 @@ class ApiClient extends GetxService {
 
     try {
       body = jsonDecode(response.body);
-    } catch (e) {}
-    Response respons = Response(
+    } catch (e) {
+      debugPrint("$e");
+    }
+
+    Response responseData = Response(
       body: body ?? response.body,
       bodyString: response.body.toString(),
       headers: response.headers,
@@ -184,9 +181,8 @@ class ApiClient extends GetxService {
     // } else if (response.statusCode != 200 && response.body == null) {
     //   response = Response(statusCode: 0, statusText: noInternetMessage);
     // }
-    debugPrint(
-        '====> API Response: [${response.statusCode}] $uri\n${response.body}');
-    return respons;
+    debugPrint('====> API Response: [${response.statusCode}] $uri\n${response.body}');
+    return responseData;
   }
 }
 

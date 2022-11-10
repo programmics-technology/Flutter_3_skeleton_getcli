@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:skeleton/utils/constants/color_constants.dart';
+
+import '../constants/color_constants.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
